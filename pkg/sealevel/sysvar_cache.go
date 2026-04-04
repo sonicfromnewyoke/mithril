@@ -65,3 +65,7 @@ type lastRestartSlotCache struct {
 }
 
 var SysvarCache = sysvarCache{}
+
+func ResetSysvarCache() {
+	SysvarCache = sysvarCache{}
+}

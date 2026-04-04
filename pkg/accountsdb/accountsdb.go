@@ -239,6 +239,9 @@ func (accountsDb *AccountsDb) getStoredAccount(slot uint64, pubkey solana.Public
 	r.End()
 
 	defer trace.StartRegion(context.Background(), "GetStoredAccountDisk").End()
+	if accountsDb.Index == nil {
+		return nil, ErrNoAccount
+	}
 	acctIdxEntryBytes, c, err := accountsDb.Index.Get(pubkey[:])
 	if err != nil {
 		//mlog.Log.Debugf("no account found in accountsdb for pubkey %s: %s", pubkey, err)
