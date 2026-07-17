@@ -1117,6 +1117,14 @@ mainLoop:
 		}
 	}
 
+	// The instruction-fetch meter charge breaks out of the main loop with the
+	// raw compute meter error; surface it as the VM-level CU exhaustion
+	// sentinel (EbpfError::ExceededMaxInstructions in solana-sbpf) so callers
+	// see the same error class regardless of where the meter tripped.
+	if err == cu.ErrComputeExceeded {
+		err = ExcOutOfCU
+	}
+
 	cuConsumed = ip.initialInstrMeter - ip.computeMeter.Remaining()
 
 	return

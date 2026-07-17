@@ -4,7 +4,7 @@ import (
 	"github.com/Overclock-Validator/mithril/pkg/accounts"
 )
 
-type sysvarCache struct {
+type SysvarCacheData struct {
 	RecentBlockHashes recentBlockhashesCache
 	Rent              rentCache
 	Clock             clockCache
@@ -64,4 +64,22 @@ type lastRestartSlotCache struct {
 	Sysvar *SysvarLastRestartSlot
 }
 
-var SysvarCache = sysvarCache{}
+var SysvarCache = SysvarCacheData{}
+
+// sysvars returns the sysvar cache governing this slot context: the
+// per-instance cache when one is set, else the process-global SysvarCache.
+// Embedders (test harnesses, multiple SVM instances in one process) set
+// SlotCtx.SysvarCache for isolation; the replay pipeline leaves it nil.
+func (slotCtx *SlotCtx) sysvars() *SysvarCacheData {
+	if slotCtx != nil && slotCtx.SysvarCache != nil {
+		return slotCtx.SysvarCache
+	}
+	return &SysvarCache
+}
+
+func (execCtx *ExecutionCtx) sysvars() *SysvarCacheData {
+	if execCtx == nil {
+		return &SysvarCache
+	}
+	return execCtx.SlotCtx.sysvars()
+}

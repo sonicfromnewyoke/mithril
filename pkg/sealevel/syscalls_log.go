@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/base64"
 	"fmt"
+	"strings"
 	"unicode/utf8"
 
 	//"github.com/Overclock-Validator/mithril/pkg/mlog"
@@ -48,7 +49,9 @@ func SyscallLog64Impl(vm sbpf.VM, r1, r2, r3, r4, r5 uint64) (uint64, error) {
 		return syscallCuErr()
 	}
 
-	msg := fmt.Sprintf("Program log: %#x, %#x, %#x, %#x, %#x\n", r1, r2, r3, r4, r5)
+	// Agave: stable_log::program_log(&log_collector,
+	// &format!("{arg1:#x}, {arg2:#x}, {arg3:#x}, {arg4:#x}, {arg5:#x}"))
+	msg := fmt.Sprintf("Program log: %#x, %#x, %#x, %#x, %#x", r1, r2, r3, r4, r5)
 	execCtx.Log.Log(msg)
 	return syscallSuccess(0)
 }
@@ -115,7 +118,7 @@ func SyscallLogDataImpl(vm sbpf.VM, addr uint64, len uint64) (uint64, error) {
 		return syscallCuErr()
 	}
 
-	msg := ""
+	fields := make([]string, 0, len)
 
 	var data []byte
 	reader := bytes.NewReader(mem)
@@ -136,12 +139,12 @@ func SyscallLogDataImpl(vm sbpf.VM, addr uint64, len uint64) (uint64, error) {
 		if err != nil {
 			return syscallErr(err)
 		}
-		encodedStr := base64.StdEncoding.EncodeToString(data)
-
-		msg += fmt.Sprintf("%s ", encodedStr)
+		fields = append(fields, base64.StdEncoding.EncodeToString(data))
 	}
 
-	execCtx.Log.Log("Program log: " + msg)
+	// Agave: stable_log::program_data - "Program data: <base64 fields
+	// joined by single spaces>".
+	execCtx.Log.Log("Program data: " + strings.Join(fields, " "))
 
 	return syscallSuccess(0)
 }

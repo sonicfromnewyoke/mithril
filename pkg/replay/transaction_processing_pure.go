@@ -1,6 +1,7 @@
 package replay
 
 import (
+	"errors"
 	"math"
 	"time"
 
@@ -32,6 +33,10 @@ type LoadAndExecuteTransactionInput struct {
 	// RecordInnerInstructions enables CPI recording. The simulate handler
 	// sets this when the RPC request asks for innerInstructions.
 	RecordInnerInstructions bool
+	// LogBytesLimit, when non-nil, caps the total log bytes recorded during
+	// execution (Agave LogCollector semantics: a "Log truncated" marker is
+	// appended once the limit is reached). Nil records logs unbounded.
+	LogBytesLimit *uint64
 }
 
 // LoadAndExecuteTransaction is a pure function that loads and executes a transaction.
@@ -111,7 +116,7 @@ func LoadAndExecuteTransaction(input LoadAndExecuteTransactionInput) LoadAndExec
 					InstructionError: err,
 				},
 			},
-			Instrs:       instrs,
+			Instrs: instrs,
 		}
 	}
 	metrics.GlobalBlockReplay.ComputeBudgetExecutionInstructions.AddTimingSince(start)
@@ -174,7 +179,7 @@ func LoadAndExecuteTransaction(input LoadAndExecuteTransactionInput) LoadAndExec
 	metrics.GlobalBlockReplay.AccountsFromTx.AddTimingSince(start)
 
 	// Create execution context
-	var log sealevel.LogRecorder
+	log := sealevel.LogRecorder{BytesLimit: input.LogBytesLimit}
 	execCtx := newExecCtx(slotCtx, transactionAccts, computeBudgetLimits, &log)
 	execCtx.TransactionContext.AllInstructions = instrs
 	execCtx.TransactionContext.Signature = tx.Signatures[0]
@@ -308,12 +313,20 @@ func LoadAndExecuteTransaction(input LoadAndExecuteTransactionInput) LoadAndExec
 	if instrErr != nil || rentStateErr != nil {
 		var relevantErr error
 		var errType TransactionErrorType
+		var accountIndex *uint8
 		if instrErr != nil {
 			relevantErr = instrErr
 			errType = TransactionErrorInstructionError
 		} else {
 			relevantErr = rentStateErr
 			errType = TransactionErrorInsufficientFundsForRent
+			// Agave's InsufficientFundsForRent carries the index of the
+			// offending account within the message account keys.
+			var rentStateErrTyped *rent.RentStateError
+			if errors.As(rentStateErr, &rentStateErrTyped) {
+				idx := uint8(rentStateErrTyped.AccountIndex)
+				accountIndex = &idx
+			}
 		}
 
 		out := LoadAndExecuteTransactionOutput{
@@ -321,6 +334,7 @@ func LoadAndExecuteTransaction(input LoadAndExecuteTransactionInput) LoadAndExec
 				TransactionError: &TransactionError{
 					ErrorType:        errType,
 					InstructionError: relevantErr,
+					AccountIndex:     accountIndex,
 				},
 			},
 			ExecCtx:             execCtx,

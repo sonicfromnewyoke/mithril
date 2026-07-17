@@ -28,7 +28,9 @@ func main() {
 		{"sol_keccak256", "SyscallKeccak256", ""},
 		{"sol_blake3", "SyscallBlake3", "ft.IsActive(features.Blake3SyscallEnabled)"},
 		{"sol_secp256k1_recover", "SyscallSecp256k1Recover", ""},
+		{"sol_big_mod_exp", "SyscallBigModExp", "ft.IsActive(features.EnableBigModExpSyscall)"},
 		{"sol_poseidon", "SyscallPoseidon", ""},
+		{"sol_remaining_compute_units", "SyscallRemainingComputeUnits", "ft.IsActive(features.RemainingComputeUnitsSyscallEnabled)"},
 		{"sol_curve_validate_point", "SyscallValidatePoint", "ft.IsActive(features.Curve25519SyscallEnabled)"},
 		{"sol_curve_multiscalar_mul", "SyscallCurveMultiscalarMultiplication", "ft.IsActive(features.Curve25519SyscallEnabled)"},
 		{"sol_curve_group_op", "SyscallCurveGroupOps", "ft.IsActive(features.Curve25519SyscallEnabled)"},
@@ -56,6 +58,20 @@ func main() {
 		{"sol_invoke_signed_rust", "sbpf.SyscallFunc5(SyscallInvokeSignedRustImpl)", ""},
 		{"sol_get_sysvar", "SyscallGetSysvar", "ft.IsActive(features.GetSysvarSyscallEnabled)"},
 		{"sol_get_epoch_stake", "SyscallGetEpochStake", "ft.IsActive(features.EnableGetEpochStakeSyscall)"},
+	}
+
+	// syscallComments are emitted verbatim above the corresponding case in
+	// the generated Syscalls switch.
+	syscallComments := map[string]string{
+		"sol_big_mod_exp": `// PINNED to the agave-syscalls-4.0.0 / solana-big-mod-exp-3.0.0
+// implementation this fork targets. The gate
+// EBq48m8irRKuE7ZnMTLvLg2UuGSqhe8s8oMqnmja1fJw is inactive on mainnet as of
+// 2026-07, but agave master has replaced the body with an Ok(1) no-op stub
+// pending SIMD-0529: if this gate ever activates on mainnet, the
+// implementation behind SyscallBigModExp MUST be revisited before the
+// activation epoch or the node will fork. See the comment on
+// SyscallBigModExpImpl in syscalls_big_mod_exp.go.
+`,
 	}
 
 	if len(os.Args) < 2 {
@@ -104,6 +120,9 @@ func Syscalls(ft *features.Features, isDeploy bool, h uint32) (f sbpf.Syscall, o
 	switch h {`)
 
 	for _, s := range syscallDefs {
+		if comment, ok := syscallComments[s.name]; ok {
+			fmt.Fprint(buf, comment)
+		}
 		fmt.Fprintf(buf, "case hash_%s:\n", s.name)
 		fmt.Fprintf(buf, "f = %s\n", s.function)
 		if s.feature != "" {

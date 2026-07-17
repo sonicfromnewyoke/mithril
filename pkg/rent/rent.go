@@ -32,6 +32,20 @@ type RentStateInfo struct {
 	RentPayingInfo RentPayingInfo
 }
 
+// RentStateError reports a disallowed rent-state transition. AccountIndex is
+// the index of the offending account within the transaction's account keys,
+// matching Agave's TransactionError::InsufficientFundsForRent account_index.
+type RentStateError struct {
+	AccountIndex uint64
+	Rule         int
+	Pre          *RentStateInfo
+	Post         *RentStateInfo
+}
+
+func (e *RentStateError) Error() string {
+	return fmt.Sprintf("[%d] rent state transition not allowed. pre: %+v, post: %+v", e.Rule, e.Pre, e.Post)
+}
+
 func rentStateFromAcct(acct *accounts.Account, rent *sealevel.SysvarRent) *RentStateInfo {
 	if acct.Lamports == 0 {
 		return &RentStateInfo{RentState: RentStateUninitialized, RentPayingInfo: RentPayingInfo{Lamports: acct.Lamports, DataSize: uint64(len(acct.Data)), Pk: acct.Key}}
@@ -79,14 +93,14 @@ func checkRentStateTransitionAllowed(preRentState *RentStateInfo, postRentState 
 			return nil
 		} else if postRentState.RentState == RentStateRentPaying {
 			if preRentState.RentState == RentStateUninitialized {
-				return fmt.Errorf("[1] rent state transition not allowed. pre: %+v, post: %+v", preRentState, postRentState)
+				return &RentStateError{AccountIndex: idx, Rule: 1, Pre: preRentState, Post: postRentState}
 			} else if preRentState.RentState == RentStateRentExempt {
-				return fmt.Errorf("[2] rent state transition not allowed. pre: %+v, post: %+v", preRentState, postRentState)
+				return &RentStateError{AccountIndex: idx, Rule: 2, Pre: preRentState, Post: postRentState}
 			} else if preRentState.RentState == RentStateRentPaying {
 				if postRentState.RentPayingInfo.DataSize == preRentState.RentPayingInfo.DataSize && postRentState.RentPayingInfo.Lamports <= preRentState.RentPayingInfo.Lamports {
 					return nil
 				} else {
-					return fmt.Errorf("[3] rent state transition not allowed. pre: %+v, post: %+v", preRentState, postRentState)
+					return &RentStateError{AccountIndex: idx, Rule: 3, Pre: preRentState, Post: postRentState}
 				}
 			}
 		}

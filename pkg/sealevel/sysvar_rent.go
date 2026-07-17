@@ -97,8 +97,8 @@ func (sr *SysvarRent) InitializeDefault() {
 }
 
 func ReadRentSysvar(execCtx *ExecutionCtx) (SysvarRent, error) {
-	if SysvarCache.Rent.Sysvar != nil {
-		return *SysvarCache.Rent.Sysvar, nil
+	if execCtx.sysvars().Rent.Sysvar != nil {
+		return *execCtx.sysvars().Rent.Sysvar, nil
 	}
 
 	accts := addrObjectForLookup(execCtx)

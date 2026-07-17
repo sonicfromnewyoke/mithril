@@ -137,8 +137,145 @@ var (
 	InstrErrBuiltinProgramsMustConsumeComputeUnits = errors.New("InstrErrBuiltinProgramsMustConsumeComputeUnits")
 )
 
+// agaveInstrErrDisplayStrings transcribes the Display impl of Agave's
+// InstructionError (solana-instruction-error, impl fmt::Display for
+// InstructionError) for every unit variant. Custom is handled separately
+// because it carries the program-defined error code.
+var agaveInstrErrDisplayStrings = map[error]string{
+	InstrErrGenericError:                           "generic instruction error",
+	InstrErrInvalidArgument:                        "invalid program argument",
+	InstrErrInvalidInstructionData:                 "invalid instruction data",
+	InstrErrInvalidAccountData:                     "invalid account data for instruction",
+	InstrErrAccountDataTooSmall:                    "account data too small for instruction",
+	InstrErrInsufficientFunds:                      "insufficient funds for instruction",
+	InstrErrIncorrectProgramId:                     "incorrect program id for instruction",
+	InstrErrMissingRequiredSignature:               "missing required signature for instruction",
+	InstrErrAccountAlreadyInitialized:              "instruction requires an uninitialized account",
+	InstrErrUninitializedAccount:                   "instruction requires an initialized account",
+	InstrErrUnbalancedInstruction:                  "sum of account balances before and after instruction do not match",
+	InstrErrModifiedProgramId:                      "instruction illegally modified the program id of an account",
+	InstrErrExternalAccountLamportSpend:            "instruction spent from the balance of an account it does not own",
+	InstrErrExternalAccountDataModified:            "instruction modified data of an account it does not own",
+	InstrErrReadonlyLamportChange:                  "instruction changed the balance of a read-only account",
+	InstrErrReadonlyDataModified:                   "instruction modified data of a read-only account",
+	InstrErrDuplicateAccountIndex:                  "instruction contains duplicate accounts",
+	InstrErrExecutableModified:                     "instruction changed executable bit of an account",
+	InstrErrRentEpochModified:                      "instruction modified rent epoch of an account",
+	InstrErrNotEnoughAccountKeys:                   "insufficient account keys for instruction",
+	InstrErrAccountDataSizeChanged:                 "program other than the account's owner changed the size of the account data",
+	InstrErrAccountNotExecutable:                   "instruction expected an executable account",
+	InstrErrAccountBorrowFailed:                    "instruction tries to borrow reference for an account which is already borrowed",
+	InstrErrAccountBorrowOutstanding:               "instruction left account with an outstanding borrowed reference",
+	InstrErrDuplicateAccountOutOfSync:              "instruction modifications of multiply-passed account differ",
+	InstrErrInvalidError:                           "program returned invalid error code",
+	InstrErrExecutableDataModified:                 "instruction changed executable accounts data",
+	InstrErrExecutableLamportChange:                "instruction changed the balance of an executable account",
+	InstrErrExecutableAccountNotRentExempt:         "executable accounts must be rent exempt",
+	InstrErrUnsupportedProgramId:                   "Unsupported program id",
+	InstrErrCallDepth:                              "Cross-program invocation call depth too deep",
+	InstrErrMissingAccount:                         "An account required by the instruction is missing",
+	InstrErrReentrancyNotAllowed:                   "Cross-program invocation reentrancy not allowed for this instruction",
+	InstrErrMaxSeedLengthExceeded:                  "Length of the seed is too long for address generation",
+	InstrErrInvalidSeeds:                           "Provided seeds do not result in a valid address",
+	InstrErrInvalidRealloc:                         "Failed to reallocate account data",
+	InstrErrComputationalBudgetExceeded:            "Computational budget exceeded",
+	InstrErrPrivilegeEscalation:                    "Cross-program invocation with unauthorized signer or writable account",
+	InstrErrProgramEnvironmentSetupFailure:         "Failed to create program execution environment",
+	InstrErrProgramFailedToComplete:                "Program failed to complete",
+	InstrErrProgramFailedToCompile:                 "Program failed to compile",
+	InstrErrImmutable:                              "Account is immutable",
+	InstrErrIncorrectAuthority:                     "Incorrect authority provided",
+	InstrErrBorshIoError:                           "Failed to serialize or deserialize account data",
+	InstrErrAccountNotRentExempt:                   "An account does not have enough lamports to be rent-exempt",
+	InstrErrInvalidAccountOwner:                    "Invalid account owner",
+	InstrErrArithmeticOverflow:                     "Program arithmetic overflowed",
+	InstrErrUnsupportedSysvar:                      "Unsupported sysvar",
+	InstrErrIllegalOwner:                           "Provided owner is not allowed",
+	InstrErrMaxAccountsDataAllocationsExceeded:     "Accounts data allocations exceeded the maximum allowed per transaction",
+	InstrErrMaxAccountsExceeded:                    "Max accounts exceeded",
+	InstrErrMaxInstructionTraceLengthExceeded:      "Max instruction trace length exceeded",
+	InstrErrBuiltinProgramsMustConsumeComputeUnits: "Builtin programs must consume compute units",
+}
+
+// agaveInstrErrDisplay renders err the way Agave's InstructionError Display
+// impl would, so stable_log program-failure lines match the Rust runtime
+// byte for byte. Program-defined custom errors (system, stake, vote, pubkey
+// and precompile sentinels as well as InstrErrCustomCode) render as
+// "custom program error: 0x<code-hex>"; anything unmapped falls back to the
+// sentinel name.
+func agaveInstrErrDisplay(err error) string {
+	if err == nil {
+		return ""
+	}
+	var custom InstrErrCustomCode
+	if errors.As(err, &custom) {
+		return fmt.Sprintf("custom program error: %#x", custom.Code)
+	}
+	if err == InstrErrCustom {
+		// Legacy sentinel without a code: only reachable from paths that
+		// never carried the program-defined u32.
+		return "custom program error: 0x0"
+	}
+	if customErrs[err] {
+		return fmt.Sprintf("custom program error: %#x", uint32(solanaNumericalErrCodes[err]))
+	}
+	if s, ok := agaveInstrErrDisplayStrings[err]; ok {
+		return s
+	}
+	// Errors that propagate out of the sbpf interpreter (e.g. an
+	// InstructionError returned by a CPI) arrive wrapped in exception chains,
+	// so the identity lookups above miss them. Resolve the underlying
+	// sentinel through the wrap chain; a chain contains at most one sentinel,
+	// so map iteration order does not matter.
+	for target, s := range agaveInstrErrDisplayStrings {
+		if errors.Is(err, target) {
+			return s
+		}
+	}
+	for customErr := range customErrs {
+		if errors.Is(err, customErr) {
+			return fmt.Sprintf("custom program error: %#x", uint32(solanaNumericalErrCodes[customErr]))
+		}
+	}
+	if errors.Is(err, InstrErrCustom) {
+		return "custom program error: 0x0"
+	}
+	return err.Error()
+}
+
+// programRunErrDisplay renders a raw (pre-normalization) VM run error the way
+// Agave's stable_log program-failure line would. Ground truth:
+// solana-program-runtime-4.0.0 invoke_context.rs process_executable_chain -
+// when the failure is an EbpfError::SyscallError whose inner error downcasts
+// to an InstructionError, the InstructionError Display is logged; otherwise
+// the ORIGINAL error's Display (the inner syscall error, e.g. "SBF program
+// panicked", or the EbpfError itself, e.g. "exceeded CUs meter at BPF
+// instruction") is logged and ProgramFailedToComplete is returned. Mithril's
+// interpreter wraps every fault as *sbpf.Exception -> fmt wrapper ->
+// (ExcSyscallError ->) sentinel, so the deepest error in the chain is the
+// one whose Display Agave would render.
+func programRunErrDisplay(err error) string {
+	if err == nil {
+		return ""
+	}
+	deepest := err
+	for {
+		unwrapped := errors.Unwrap(deepest)
+		if unwrapped == nil {
+			break
+		}
+		deepest = unwrapped
+	}
+	return agaveInstrErrDisplay(deepest)
+}
+
 // syscall errors
 var (
+	// SyscallErrAbort carries Agave's SyscallError::Abort Display text
+	// ("SBF program panicked", agave-syscalls-4.0.0) because it is rendered
+	// verbatim in the "Program <id> failed: <err>" stable_log line.
+	SyscallErrAbort = errors.New("SBF program panicked")
+
 	SyscallErrCopyOverlapping                    = errors.New("SyscallErrCopyOverlapping")
 	SyscallErrTooManySlices                      = errors.New("SyscallErrTooManySlices")
 	SyscallErrInvalidLength                      = errors.New("SyscallErrInvalidLength")

@@ -41,7 +41,7 @@ func MaybeAdvanceNonceAccountForFailedTx(slotCtx *SlotCtx, tx *solana.Transactio
 	// we check against the latest 151 blockhashes (hence slotCtx.LatestEvictedBlockhash) instead of 150
 	// because of a (known) quirk in Agave's blockhash queue implementation.
 	// see https://github.com/anza-xyz/agave/blame/992a398fe8ea29ec4f04d081ceef7664960206f4/accounts-db/src/blockhash_queue.rs#L222
-	recentBlockhashes := SysvarCache.RecentBlockHashes.Sysvar
+	recentBlockhashes := slotCtx.sysvars().RecentBlockHashes.Sysvar
 	if recentBlockhashes.IsBlockhashAgeValid(tx.Message.RecentBlockhash) {
 		return solana.PublicKey{}, false
 	} else if tx.Message.RecentBlockhash == slotCtx.LatestEvictedBlockhash {
@@ -112,7 +112,7 @@ func IsTransactionAgeValid(tx *solana.Transaction, instrs []Instruction, slotCtx
 	// because of a (known) quirk in Agave's blockhash queue implementation.
 	// see https://github.com/anza-xyz/agave/blame/992a398fe8ea29ec4f04d081ceef7664960206f4/accounts-db/src/blockhash_queue.rs#L222
 
-	recentBlockhashes := SysvarCache.RecentBlockHashes.Sysvar
+	recentBlockhashes := slotCtx.sysvars().RecentBlockHashes.Sysvar
 	if recentBlockhashes.IsBlockhashAgeValid(tx.Message.RecentBlockhash) || tx.Message.RecentBlockhash == slotCtx.LatestEvictedBlockhash {
 		return true
 	}

@@ -136,8 +136,8 @@ func (sr *SysvarEpochRewards) Distribute(amount uint64) {
 }
 
 func ReadEpochRewardsSysvar(execCtx *ExecutionCtx) (SysvarEpochRewards, error) {
-	if SysvarCache.EpochRewards.Sysvar != nil {
-		return *SysvarCache.EpochRewards.Sysvar, nil
+	if execCtx.sysvars().EpochRewards.Sysvar != nil {
+		return *execCtx.sysvars().EpochRewards.Sysvar, nil
 	}
 
 	accts := addrObjectForLookup(execCtx)

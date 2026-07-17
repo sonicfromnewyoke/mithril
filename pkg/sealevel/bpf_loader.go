@@ -2,6 +2,7 @@ package sealevel
 
 import (
 	"bytes"
+	"encoding/base64"
 	"encoding/binary"
 	"errors"
 	"fmt"
@@ -1251,11 +1252,23 @@ func executeLoadedProgram(execCtx *ExecutionCtx, program *sbpf.Program, syscallR
 
 	programAcct.Drop()
 
+	// Agave logs "Program <id> consumed <n> of <budget> compute units" with
+	// the budget sampled before the VM is created (i.e. before the heap cost
+	// is charged); see solana-program-runtime vm.rs execute().
+	computeMeterPrev := execCtx.ComputeMeter.Remaining()
+
 	heapSize := execCtx.TransactionContext.ComputeBudgetLimits.UpdatedHeapBytes
 	heapCostResult := calculateHeapCost(heapSize, cu.CUHeapCostDefault)
 	err = execCtx.ComputeMeter.Consume(heapCostResult)
 	if err != nil {
-		return err
+		// Agave charges the heap cost inside create_vm!; on failure execute()
+		// logs "Failed to create SBF VM: <err>" (err is consume_checked's
+		// InstructionError::ComputationalBudgetExceeded) and returns
+		// ProgramEnvironmentSetupFailure (solana-program-runtime-4.0.0
+		// src/vm.rs lines 129-134, 243-252).
+		execCtx.stableLog(fmt.Sprintf("Failed to create SBF VM: %s",
+			agaveInstrErrDisplay(InstrErrComputationalBudgetExceeded)))
+		return InstrErrProgramEnvironmentSetupFailure
 	}
 
 	var parameterBytes []byte
@@ -1305,8 +1318,21 @@ func executeLoadedProgram(execCtx *ExecutionCtx, program *sbpf.Program, syscallR
 	defer interpreter.Finish()
 	metrics.GlobalBlockReplay.SbpfInterpreterNew.AddTimingSince(start)
 	start = time.Now()
+	beforeRun := execCtx.ComputeMeter.Remaining()
 	ret, _, runErr := interpreter.Run()
 	metrics.GlobalBlockReplay.SbpfInterpreterRun.AddTimingSince(start)
+
+	// Agave (program-runtime vm.rs execute()) logs the consumed line right
+	// after the VM run - consumed excludes the heap cost, the budget is the
+	// meter remaining before the VM was created - followed by a
+	// "Program return: <id> <base64>" line when the transaction's return
+	// data is non-empty, both before any error mapping happens.
+	execCtx.stableLog(fmt.Sprintf("Program %s consumed %d of %d compute units",
+		programId, beforeRun-execCtx.ComputeMeter.Remaining(), computeMeterPrev))
+	if _, returnData := txCtx.ReturnData(); len(returnData) != 0 {
+		execCtx.stableLog(fmt.Sprintf("Program return: %s %s",
+			programId, base64.StdEncoding.EncodeToString(returnData)))
+	}
 
 	if execCtx.Features.IsActive(features.VirtualAddressSpaceAdjustments) {
 		runErr = mapVirtualAddressSpaceRunErr(execCtx, runErr, inputRegions)
@@ -1333,7 +1359,16 @@ func executeLoadedProgram(execCtx *ExecutionCtx, program *sbpf.Program, syscallR
 		}
 	}
 
-	return normalizeProgramRunErr(runErr)
+	normalizedErr := normalizeProgramRunErr(runErr)
+	if normalizedErr != nil && normalizedErr != runErr {
+		// Normalization collapsed a non-InstructionError failure to
+		// ProgramFailedToComplete. Agave logs the ORIGINAL error's Display in
+		// the "Program <id> failed: <err>" line before returning the
+		// normalized error (invoke_context.rs process_executable_chain), so
+		// stash the raw error for the framing in ExecuteInstruction.
+		execCtx.programRunRawErr = runErr
+	}
+	return normalizedErr
 }
 
 func executeProgramFromBytes(execCtx *ExecutionCtx, programAddr solana.PublicKey, programData []byte, syscallRegistry sbpf.SyscallRegistry) error {

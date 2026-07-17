@@ -143,8 +143,8 @@ func (recentBlockhashes *SysvarRecentBlockhashes) IsBlockhashAgeValid(hash [32]b
 }
 
 func ReadRecentBlockHashesSysvar(execCtx *ExecutionCtx) (SysvarRecentBlockhashes, error) {
-	if SysvarCache.RecentBlockHashes.Sysvar != nil {
-		return *SysvarCache.RecentBlockHashes.Sysvar, nil
+	if execCtx.sysvars().RecentBlockHashes.Sysvar != nil {
+		return *execCtx.sysvars().RecentBlockHashes.Sysvar, nil
 	}
 
 	accts := addrObjectForLookup(execCtx)

@@ -291,12 +291,20 @@ func TestTransactionError_MarshalJSON_InstructionError(t *testing.T) {
 
 // TestTransactionError_MarshalJSON_CustomCarriesShape verifies the
 // {"InstructionError":[idx, {"Custom":N}]} object shape Agave uses for
-// program-defined error codes. Mithril does not yet preserve the program-
-// specific u32, so the inner code is 0 — but the SHAPE is correct so
-// Anchor / web3.js parsers don't break on the response.
+// program-defined error codes: InstrErrCustomCode carries the program's
+// u32 through to the JSON, and the legacy code-less InstrErrCustom
+// sentinel still renders as {"Custom":0}.
 func TestTransactionError_MarshalJSON_CustomCarriesShape(t *testing.T) {
 	idx := uint8(0)
 	got, err := json.Marshal(&TransactionError{
+		ErrorType:        TransactionErrorInstructionError,
+		InstructionIndex: &idx,
+		InstructionError: sealevel.InstrErrCustomCode{Code: 6042},
+	})
+	require.NoError(t, err)
+	assert.JSONEq(t, `{"InstructionError":[0,{"Custom":6042}]}`, string(got))
+
+	got, err = json.Marshal(&TransactionError{
 		ErrorType:        TransactionErrorInstructionError,
 		InstructionIndex: &idx,
 		InstructionError: sealevel.InstrErrCustom,
@@ -332,10 +340,10 @@ func TestTransactionError_MarshalJSON_TupleStructVariants(t *testing.T) {
 // inner Go error is nil.
 func TestTransactionErrorType_String(t *testing.T) {
 	cases := map[TransactionErrorType]string{
-		TransactionErrorSanitizeFailure:        "SanitizeFailure",
-		TransactionErrorBlockhashNotFound:      "BlockhashNotFound",
-		TransactionErrorAccountNotFound:        "AccountNotFound",
-		TransactionErrorProgramAccountNotFound: "ProgramAccountNotFound",
+		TransactionErrorSanitizeFailure:         "SanitizeFailure",
+		TransactionErrorBlockhashNotFound:       "BlockhashNotFound",
+		TransactionErrorAccountNotFound:         "AccountNotFound",
+		TransactionErrorProgramAccountNotFound:  "ProgramAccountNotFound",
 		TransactionErrorInsufficientFundsForFee: "InsufficientFundsForFee",
 	}
 	for in, want := range cases {

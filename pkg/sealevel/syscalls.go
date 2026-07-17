@@ -19,7 +19,9 @@ const (
 	hash_sol_keccak256                         = 0xd7793abb
 	hash_sol_blake3                            = 0x174c5122
 	hash_sol_secp256k1_recover                 = 0x17e40350
+	hash_sol_big_mod_exp                       = 0x780e4c15
 	hash_sol_poseidon                          = 0xc4947c21
+	hash_sol_remaining_compute_units           = 0xedef5aee
 	hash_sol_curve_validate_point              = 0xaa2607ca
 	hash_sol_curve_multiscalar_mul             = 0x60a40880
 	hash_sol_curve_group_op                    = 0xdd1c41a6
@@ -75,8 +77,22 @@ func Syscalls(ft *features.Features, isDeploy bool, h uint32) (f sbpf.Syscall, o
 		ok = ft.IsActive(features.Blake3SyscallEnabled)
 	case hash_sol_secp256k1_recover:
 		f = SyscallSecp256k1Recover
+	// PINNED to the agave-syscalls-4.0.0 / solana-big-mod-exp-3.0.0
+	// implementation this fork targets. The gate
+	// EBq48m8irRKuE7ZnMTLvLg2UuGSqhe8s8oMqnmja1fJw is inactive on mainnet as of
+	// 2026-07, but agave master has replaced the body with an Ok(1) no-op stub
+	// pending SIMD-0529: if this gate ever activates on mainnet, the
+	// implementation behind SyscallBigModExp MUST be revisited before the
+	// activation epoch or the node will fork. See the comment on
+	// SyscallBigModExpImpl in syscalls_big_mod_exp.go.
+	case hash_sol_big_mod_exp:
+		f = SyscallBigModExp
+		ok = ft.IsActive(features.EnableBigModExpSyscall)
 	case hash_sol_poseidon:
 		f = SyscallPoseidon
+	case hash_sol_remaining_compute_units:
+		f = SyscallRemainingComputeUnits
+		ok = ft.IsActive(features.RemainingComputeUnitsSyscallEnabled)
 	case hash_sol_curve_validate_point:
 		f = SyscallValidatePoint
 		ok = ft.IsActive(features.Curve25519SyscallEnabled)

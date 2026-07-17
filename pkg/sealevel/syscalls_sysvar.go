@@ -246,19 +246,19 @@ func fetchSysvarBytesForPubkey(execCtx *ExecutionCtx, pubkey solana.PublicKey) (
 
 	var sysvarAcct *accounts.Account
 	if pubkey == SysvarClockAddr {
-		sysvarAcct = SysvarCache.Clock.Acct
+		sysvarAcct = execCtx.sysvars().Clock.Acct
 	} else if pubkey == SysvarEpochScheduleAddr {
-		sysvarAcct = SysvarCache.EpochSchedule.Acct
+		sysvarAcct = execCtx.sysvars().EpochSchedule.Acct
 	} else if pubkey == SysvarEpochRewardsAddr {
-		sysvarAcct = SysvarCache.EpochRewards.Acct
+		sysvarAcct = execCtx.sysvars().EpochRewards.Acct
 	} else if pubkey == SysvarRentAddr {
-		sysvarAcct = SysvarCache.Rent.Acct
+		sysvarAcct = execCtx.sysvars().Rent.Acct
 	} else if pubkey == SysvarSlotHashesAddr {
-		sysvarAcct = SysvarCache.SlotHashes.Acct
+		sysvarAcct = execCtx.sysvars().SlotHashes.Acct
 	} else if pubkey == SysvarStakeHistoryAddr {
-		sysvarAcct = SysvarCache.StakeHistory.Acct
+		sysvarAcct = execCtx.sysvars().StakeHistory.Acct
 	} else if pubkey == SysvarLastRestartSlotAddr {
-		sysvarAcct = SysvarCache.LastRestartSlot.Acct
+		sysvarAcct = execCtx.sysvars().LastRestartSlot.Acct
 	}
 	if sysvarAcct == nil {
 		return nil, fmt.Errorf("sysvar account not found")

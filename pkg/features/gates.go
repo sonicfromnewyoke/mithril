@@ -83,6 +83,8 @@ var EnableBls12_381Syscall = FeatureGate{Name: "EnableBls12_381Syscall", Address
 var UpgradeBpfStakeProgramToV5 = FeatureGate{Name: "UpgradeBpfStakeProgramToV5", Address: base58.MustDecodeFromString("STk5Xj8hdAx3sTzmtJ3QysKkq6X2A3yj73JtxttiRyk")}
 var DelayCommissionUpdates = FeatureGate{Name: "DelayCommissionUpdates", Address: base58.MustDecodeFromString("76dHtohc2s5dR3ahJyBxs7eJJVipFkaPdih9CLgTTb4B")}
 var ValidateChainedBlockId = FeatureGate{Name: "ValidateChainedBlockId", Address: base58.MustDecodeFromString("vcmrbYbiMVKaq1snKP6eCacNDcr6qZvpCNUjmk6gxvZ")}
+var RemainingComputeUnitsSyscallEnabled = FeatureGate{Name: "RemainingComputeUnitsSyscallEnabled", Address: base58.MustDecodeFromString("5TuppMutoyzhUSfuYdhgzD47F92GL1g89KpCZQKqedxP")}
+var EnableBigModExpSyscall = FeatureGate{Name: "EnableBigModExpSyscall", Address: base58.MustDecodeFromString("EBq48m8irRKuE7ZnMTLvLg2UuGSqhe8s8oMqnmja1fJw")}
 var DiscardUnexpectedDataCompleteShreds = FeatureGate{Name: "DiscardUnexpectedDataCompleteShreds", Address: base58.MustDecodeFromString("dcomRRWHXP1FVWPqi9Mm4oxJhF4ehC795SvAtUdA9os")}
 
 var AllFeatureGates = []FeatureGate{StopTruncatingStringsInSyscalls, EnablePartitionedEpochReward, EnablePartitionedEpochRewardsSuperfeature,
@@ -103,4 +105,5 @@ var AllFeatureGates = []FeatureGate{StopTruncatingStringsInSyscalls, EnableParti
 	ProvideInstructionDataOffsetInVmR2, SyscallParameterAddressRestrictions, VirtualAddressSpaceAdjustments, AccountDataDirectMapping,
 	VoteStateV4, RelaxProgramdataAccountCheckMigration, ReplaceSplTokenWithPToken, CreateAccountAllowPrefund,
 	RemoveSimpleVoteFromCostModel, DisableZkElgamalProofProgram, ReenableZkElgamalProofProgram, AltBn128LittleEndian, EnableAltBn128G2Syscalls,
-	EnableBls12_381Syscall, UpgradeBpfStakeProgramToV5, DelayCommissionUpdates, ValidateChainedBlockId, DiscardUnexpectedDataCompleteShreds}
+	EnableBls12_381Syscall, UpgradeBpfStakeProgramToV5, DelayCommissionUpdates, ValidateChainedBlockId, DiscardUnexpectedDataCompleteShreds,
+	RemainingComputeUnitsSyscallEnabled, EnableBigModExpSyscall}

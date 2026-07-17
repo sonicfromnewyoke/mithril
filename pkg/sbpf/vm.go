@@ -83,16 +83,20 @@ func (e *Exception) Unwrap() error {
 	return e.Detail
 }
 
-// Exception codes.
+// Exception codes. The sentinel texts mirror the Display impl of the
+// corresponding solana-sbpf EbpfError variants (verified against
+// solana-sbpf-0.14.4 src/error.rs), because Agave's stable_log renders the
+// raw EbpfError Display in "Program <id> failed: <err>" lines when the
+// failure does not map to an InstructionError.
 var (
-	ExcDivideByZero   = errors.New("divide by zero at BPF instruction")
-	ExcDivideOverflow = errors.New("divide overflow")
-	ExcOutOfCU        = errors.New("compute unit overrun")
-	ExcCallDepth      = errors.New("call depth exceeded")
-	ExcInvalidInstr   = errors.New("invalid instruction - feature not enabled")
+	ExcDivideByZero   = errors.New("divide by zero at BPF instruction")         // EbpfError::DivideByZero
+	ExcDivideOverflow = errors.New("division overflow at BPF instruction")      // EbpfError::DivideOverflow
+	ExcOutOfCU        = errors.New("exceeded CUs meter at BPF instruction")     // EbpfError::ExceededMaxInstructions
+	ExcCallDepth      = errors.New("exceeded max BPF to BPF call depth")        // EbpfError::CallDepthExceeded
+	ExcInvalidInstr   = errors.New("invalid instruction - feature not enabled") // (mithril-specific diagnostic)
 
-	ExcUnsupportedInstruction = errors.New("unsupported BPF instruction")
-	ExcExecutionOverrun       = errors.New("attempted to execute past the end of the text segment")
+	ExcUnsupportedInstruction = errors.New("unsupported BPF instruction")                                              // EbpfError::UnsupportedInstruction
+	ExcExecutionOverrun       = errors.New("attempted to execute past the end of the text segment at BPF instruction") // EbpfError::ExecutionOverrun
 )
 
 type ExcBadAccess struct {
@@ -111,8 +115,33 @@ func NewExcBadAccess(addr uint64, size uint64, write bool, reason string) ExcBad
 	}
 }
 
+// accessViolationSection derives the section name solana-sbpf reports in
+// EbpfError::AccessViolation from the faulting virtual address: the region is
+// selected by the address' top 32 bits (memory_region.rs
+// generate_access_violation, solana-sbpf-0.14.4).
+func accessViolationSection(addr uint64) string {
+	switch addr & ^(VaddrProgram - 1) {
+	case VaddrProgram:
+		return "program"
+	case VaddrStack:
+		return "stack"
+	case VaddrHeap:
+		return "heap"
+	case VaddrInput:
+		return "input"
+	default:
+		return "unknown"
+	}
+}
+
+// Error mirrors the Display of solana-sbpf's general
+// EbpfError::AccessViolation ("Access violation in {section} section at
+// address {addr:#x} of size {size}"), which Agave's stable_log renders in
+// "Program <id> failed: <err>" lines. The stack-frame specific
+// StackAccessViolation variant is not reproduced; the general form is used
+// for all addresses. Reason is kept for diagnostics but not displayed.
 func (e ExcBadAccess) Error() string {
-	return fmt.Sprintf("bad memory access at %#x (size=%d write=%v), reason: %s", e.Addr, e.Size, e.Write, e.Reason)
+	return fmt.Sprintf("Access violation in %s section at address %#x of size %d", accessViolationSection(e.Addr), e.Addr, e.Size)
 }
 
 type ExcCallDest struct {

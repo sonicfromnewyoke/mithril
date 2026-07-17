@@ -76,6 +76,21 @@ func scanAndEnableFeatures(acctsDb *accountsdb.AccountsDb, replayCtx *ReplayCtx,
 		}
 	}
 
+	// enable_big_mod_exp_syscall (EBq48m8irRKuE7ZnMTLvLg2UuGSqhe8s8oMqnmja1fJw)
+	// is wired to the OLD agave-syscalls-4.0.0 sol_big_mod_exp implementation,
+	// which agave master has since replaced with an Ok(1) no-op stub pending
+	// SIMD-0529. The gate is inactive on mainnet as of 2026-07; if it ever
+	// activates, mithril's semantics will diverge from agave on the first
+	// sol_big_mod_exp call and the node will fork. Warn loudly so an
+	// activation cannot go unnoticed. See sealevel/syscalls_big_mod_exp.go.
+	if f.IsActive(features.EnableBigModExpSyscall) {
+		mlog.Log.Warnf("Feature gate %s (enable_big_mod_exp_syscall, %s) is ACTIVE: "+
+			"mithril's sol_big_mod_exp implementation is pinned to the removed agave-syscalls-4.0.0 "+
+			"semantics while agave master ships an Ok(1) stub pending SIMD-0529; this node WILL fork "+
+			"from agave unless sealevel/syscalls_big_mod_exp.go is updated for the activated semantics",
+			features.EnableBigModExpSyscall.Name, features.EnableBigModExpSyscall.Address)
+	}
+
 	if len(modifiedAccts) != 0 {
 		if err := acctsDb.StoreAccounts(modifiedAccts, slot, nil); err != nil {
 			panic(err)

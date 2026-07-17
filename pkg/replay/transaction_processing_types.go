@@ -2,6 +2,7 @@ package replay
 
 import (
 	"encoding/json"
+	"errors"
 	"strings"
 
 	"github.com/Overclock-Validator/mithril/pkg/accounts"
@@ -250,9 +251,9 @@ const (
 // If execution failed, all account state changes will be rolled back except
 // deducted fees and any advanced nonces.
 type ExecutedTransaction struct {
-	LoadedTransaction  LoadedTransaction
-	ExecutionDetails   TransactionExecutionDetails
-	ProgramsModified   map[solana.PublicKey]bool // Programs that were modified by this transaction
+	LoadedTransaction LoadedTransaction
+	ExecutionDetails  TransactionExecutionDetails
+	ProgramsModified  map[solana.PublicKey]bool // Programs that were modified by this transaction
 }
 
 // FeesOnlyTransaction represents a transaction that was not able to be executed
@@ -409,8 +410,12 @@ func agaveInstrErrName(err error) interface{} {
 	if err == nil {
 		return nil
 	}
-	// TODO: propagate the program-defined u32 through InstructionError
-	// rather than emitting 0 as a placeholder.
+	var custom sealevel.InstrErrCustomCode
+	if errors.As(err, &custom) {
+		return map[string]uint32{"Custom": custom.Code}
+	}
+	// Legacy sentinel without a code: only reachable from paths that never
+	// carried the program-defined u32.
 	if err == sealevel.InstrErrCustom {
 		return map[string]uint32{"Custom": 0}
 	}

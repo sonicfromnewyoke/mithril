@@ -10,6 +10,8 @@ const (
 	CUSha256ByteCost                                             = 1
 	CUCreateProgramAddressUnits                                  = 1500
 	CUSecP256k1RecoverCost                                       = 25000
+	CUBigModExpBaseCost                                          = 190
+	CUBigModExpCostDivisor                                       = 2
 	CUInvokeUnits                                                = 1000
 	CUInvokeUnitsSimd0339                                        = 946
 	CUConfigProcessorDefaultComputeUnits                         = 450

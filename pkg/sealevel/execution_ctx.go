@@ -2,6 +2,7 @@ package sealevel
 
 import (
 	"context"
+	"fmt"
 	"sync"
 	"time"
 
@@ -36,6 +37,26 @@ type ExecutionCtx struct {
 	InnerInstrs             []RecordedInnerInstr
 
 	serializedAccountMetadataStack [][]serializedAcctMetadata
+
+	// programRunRawErr holds the raw (pre-normalization) sbpf run error of
+	// the instruction that just failed, set by executeLoadedProgram when
+	// normalizeProgramRunErr collapses a non-InstructionError failure to
+	// InstrErrProgramFailedToComplete. Agave logs the ORIGINAL error's
+	// Display in the "Program <id> failed: <err>" stable_log line and only
+	// then returns ProgramFailedToComplete (solana-program-runtime-4.0.0
+	// invoke_context.rs process_executable_chain), so the framing in
+	// ExecuteInstruction consumes this via takeProgramRunRawErr.
+	programRunRawErr error
+}
+
+// takeProgramRunRawErr returns and clears the stashed raw run error. It is
+// consumed (and always cleared) at the stable_log framing point of each
+// instruction so a nested CPI failure cannot leak its raw error into the
+// parent instruction's framing.
+func (execCtx *ExecutionCtx) takeProgramRunRawErr() error {
+	raw := execCtx.programRunRawErr
+	execCtx.programRunRawErr = nil
+	return raw
 }
 
 // RecordedInnerInstr is a CPI invocation captured during execution.
@@ -65,6 +86,11 @@ type SlotCtx struct {
 	ParentAccts     accounts.Accounts
 	AccountsDb      *accountsdb.AccountsDb
 	FeeRateGovernor *FeeRateGovernor
+	// SysvarCache, when non-nil, overrides the process-global SysvarCache
+	// for all sysvar reads under this slot context. Embedders running
+	// multiple isolated SVM instances in one process must set it; the
+	// node's replay pipeline leaves it nil and uses the global.
+	SysvarCache     *SysvarCacheData
 	Slot            uint64
 	ParentSlot      uint64
 	Epoch           uint64
@@ -295,6 +321,17 @@ func (execCtx *ExecutionCtx) ExecuteInstruction() error {
 	}
 	metrics.GlobalBlockReplay.ExecIxResolveNativeProgram.AddTimingSince(start)
 
+	// Agave stable_log framing (program-runtime process_executable_chain):
+	// every instruction is bracketed by "Program <id> invoke [<depth>]" and
+	// "Program <id> success" / "Program <id> failed: <err>". Precompiles are
+	// dispatched via process_precompile in Agave, which emits no framing.
+	isPrecompile := builtinId == a.Ed25519PrecompileAddr ||
+		builtinId == a.Secp256kPrecompileAddr ||
+		builtinId == a.Secp256r1PrecompileAddr
+	if !isPrecompile {
+		execCtx.stableLog(fmt.Sprintf("Program %s invoke [%d]", rootAcctKey, execCtx.StackHeight()))
+	}
+
 	start = time.Now()
 	err = nativeProgramFn(execCtx)
 	switch nativeProgramStr {
@@ -318,6 +355,23 @@ func (execCtx *ExecutionCtx) ExecuteInstruction() error {
 		metrics.GlobalBlockReplay.ExecIxNativeProgramEd25519Precompile.AddTimingSince(start)
 	case a.Secp256kPrecompileAddrStr:
 		metrics.GlobalBlockReplay.ExecIxNativeProgramSecp256kPrecompile.AddTimingSince(start)
+	}
+
+	// Agave renders the failed line from the error BEFORE it is normalized to
+	// ProgramFailedToComplete (invoke_context.rs process_executable_chain:
+	// the original SyscallError/EbpfError Display is logged when it does not
+	// map to an InstructionError). executeLoadedProgram stashes that raw run
+	// error; take it unconditionally so a stale value can never leak into a
+	// later instruction's framing.
+	rawRunErr := execCtx.takeProgramRunRawErr()
+	if !isPrecompile {
+		if err == nil {
+			execCtx.stableLog(fmt.Sprintf("Program %s success", rootAcctKey))
+		} else if rawRunErr != nil {
+			execCtx.stableLog(fmt.Sprintf("Program %s failed: %s", rootAcctKey, programRunErrDisplay(rawRunErr)))
+		} else {
+			execCtx.stableLog(fmt.Sprintf("Program %s failed: %s", rootAcctKey, agaveInstrErrDisplay(err)))
+		}
 	}
 
 	return err
