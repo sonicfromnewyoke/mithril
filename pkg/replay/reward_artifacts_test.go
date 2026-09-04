@@ -7,7 +7,7 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/pkg/rewards"
+	"github.com/sonicfromnewyoke/mithril/pkg/rewards"
 	"github.com/gagliardetto/solana-go"
 	"github.com/stretchr/testify/require"
 )

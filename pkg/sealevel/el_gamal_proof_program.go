@@ -8,9 +8,9 @@ import (
 	"strings"
 	"unsafe"
 
-	a "github.com/Overclock-Validator/mithril/pkg/addresses"
-	"github.com/Overclock-Validator/mithril/pkg/cu"
-	"github.com/Overclock-Validator/mithril/pkg/features"
+	a "github.com/sonicfromnewyoke/mithril/pkg/addresses"
+	"github.com/sonicfromnewyoke/mithril/pkg/cu"
+	"github.com/sonicfromnewyoke/mithril/pkg/features"
 	"github.com/gagliardetto/solana-go"
 	"github.com/gtank/merlin"
 	"github.com/gtank/ristretto255"

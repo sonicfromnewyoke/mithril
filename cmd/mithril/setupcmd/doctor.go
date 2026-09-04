@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Overclock-Validator/mithril/pkg/config"
+	"github.com/sonicfromnewyoke/mithril/pkg/config"
 )
 
 func runDoctor() {

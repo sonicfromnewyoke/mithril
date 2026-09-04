@@ -6,10 +6,10 @@ import (
 	"log"
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/pkg/accounts"
-	a "github.com/Overclock-Validator/mithril/pkg/addresses"
-	"github.com/Overclock-Validator/mithril/pkg/cu"
-	"github.com/Overclock-Validator/mithril/pkg/sealevel"
+	"github.com/sonicfromnewyoke/mithril/pkg/accounts"
+	a "github.com/sonicfromnewyoke/mithril/pkg/addresses"
+	"github.com/sonicfromnewyoke/mithril/pkg/cu"
+	"github.com/sonicfromnewyoke/mithril/pkg/sealevel"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/protobuf/proto"
 )

@@ -3,7 +3,7 @@ package sbpfver
 import (
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/pkg/features"
+	"github.com/sonicfromnewyoke/mithril/pkg/features"
 	"github.com/stretchr/testify/require"
 )
 

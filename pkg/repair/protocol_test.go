@@ -5,7 +5,7 @@ import (
 	"encoding/binary"
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/pkg/gossip"
+	"github.com/sonicfromnewyoke/mithril/pkg/gossip"
 )
 
 func TestBuildWindowIndexRequest(t *testing.T) {

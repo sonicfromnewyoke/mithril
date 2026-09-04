@@ -1,6 +1,6 @@
 package sealevel
 
-import "github.com/Overclock-Validator/mithril/pkg/safemath"
+import "github.com/sonicfromnewyoke/mithril/pkg/safemath"
 
 type Logger interface {
 	Log(s string)

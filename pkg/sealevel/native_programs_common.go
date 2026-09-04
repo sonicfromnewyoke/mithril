@@ -3,7 +3,7 @@ package sealevel
 import (
 	"errors"
 
-	a "github.com/Overclock-Validator/mithril/pkg/addresses"
+	a "github.com/sonicfromnewyoke/mithril/pkg/addresses"
 	"github.com/gagliardetto/solana-go"
 )
 

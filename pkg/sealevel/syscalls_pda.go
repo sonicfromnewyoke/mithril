@@ -5,9 +5,9 @@ import (
 	"errors"
 	"math"
 
-	"github.com/Overclock-Validator/mithril/pkg/cu"
-	"github.com/Overclock-Validator/mithril/pkg/sbpf"
-	"github.com/Overclock-Validator/mithril/pkg/solana"
+	"github.com/sonicfromnewyoke/mithril/pkg/cu"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf"
+	"github.com/sonicfromnewyoke/mithril/pkg/solana"
 )
 
 const MaxSeeds = 16

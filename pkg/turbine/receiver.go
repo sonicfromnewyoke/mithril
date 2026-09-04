@@ -10,8 +10,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Overclock-Validator/mithril/pkg/block"
-	"github.com/Overclock-Validator/mithril/pkg/gossip"
+	"github.com/sonicfromnewyoke/mithril/pkg/block"
+	"github.com/sonicfromnewyoke/mithril/pkg/gossip"
 	"github.com/gagliardetto/solana-go"
 )
 

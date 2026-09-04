@@ -11,7 +11,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Overclock-Validator/mithril/pkg/mlog"
+	"github.com/sonicfromnewyoke/mithril/pkg/mlog"
 )
 
 const (

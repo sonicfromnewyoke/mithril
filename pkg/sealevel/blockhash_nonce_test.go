@@ -4,8 +4,8 @@ import (
 	"encoding/binary"
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/pkg/accounts"
-	a "github.com/Overclock-Validator/mithril/pkg/addresses"
+	"github.com/sonicfromnewyoke/mithril/pkg/accounts"
+	a "github.com/sonicfromnewyoke/mithril/pkg/addresses"
 	"github.com/gagliardetto/solana-go"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

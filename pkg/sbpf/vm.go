@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/Overclock-Validator/mithril/pkg/cu"
+	"github.com/sonicfromnewyoke/mithril/pkg/cu"
 	"github.com/gagliardetto/solana-go"
 )
 

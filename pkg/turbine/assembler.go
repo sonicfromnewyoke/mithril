@@ -6,7 +6,7 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/Overclock-Validator/mithril/pkg/block"
+	"github.com/sonicfromnewyoke/mithril/pkg/block"
 	"github.com/klauspost/reedsolomon"
 )
 

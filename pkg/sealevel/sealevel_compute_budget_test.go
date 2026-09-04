@@ -5,12 +5,12 @@ import (
 	"math"
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/pkg/accounts"
-	"github.com/Overclock-Validator/mithril/pkg/cu"
+	"github.com/sonicfromnewyoke/mithril/pkg/accounts"
+	"github.com/sonicfromnewyoke/mithril/pkg/cu"
 	bin "github.com/gagliardetto/binary"
 	"github.com/stretchr/testify/require"
 
-	a "github.com/Overclock-Validator/mithril/pkg/addresses"
+	a "github.com/sonicfromnewyoke/mithril/pkg/addresses"
 	"github.com/stretchr/testify/assert"
 )
 

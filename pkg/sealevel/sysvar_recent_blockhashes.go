@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/Overclock-Validator/mithril/pkg/base58"
+	"github.com/sonicfromnewyoke/mithril/pkg/base58"
 	bin "github.com/gagliardetto/binary"
 )
 

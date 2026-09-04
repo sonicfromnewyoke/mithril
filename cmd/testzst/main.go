@@ -5,8 +5,8 @@ import (
 	"io"
 	"os"
 
-	"github.com/Overclock-Validator/mithril/pkg/mlog"
-	"github.com/Overclock-Validator/mithril/pkg/snapshot"
+	"github.com/sonicfromnewyoke/mithril/pkg/mlog"
+	"github.com/sonicfromnewyoke/mithril/pkg/snapshot"
 	"github.com/klauspost/compress/zstd"
 )
 

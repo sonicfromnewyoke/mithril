@@ -3,11 +3,11 @@ package sealevel
 import (
 	"encoding/binary"
 
-	//"github.com/Overclock-Validator/mithril/pkg/mlog"
-	"github.com/Overclock-Validator/mithril/pkg/cu"
-	"github.com/Overclock-Validator/mithril/pkg/safemath"
-	"github.com/Overclock-Validator/mithril/pkg/sbpf"
-	"github.com/Overclock-Validator/mithril/pkg/util"
+	//"github.com/sonicfromnewyoke/mithril/pkg/mlog"
+	"github.com/sonicfromnewyoke/mithril/pkg/cu"
+	"github.com/sonicfromnewyoke/mithril/pkg/safemath"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf"
+	"github.com/sonicfromnewyoke/mithril/pkg/util"
 )
 
 func MemOpConsume(execCtx *ExecutionCtx, n uint64) error {

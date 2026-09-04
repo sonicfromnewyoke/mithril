@@ -8,9 +8,9 @@ import (
 	"slices"
 	"sort"
 
-	"github.com/Overclock-Validator/mithril/pkg/epochstakes"
-	"github.com/Overclock-Validator/mithril/pkg/safemath"
-	"github.com/Overclock-Validator/mithril/pkg/sealevel"
+	"github.com/sonicfromnewyoke/mithril/pkg/epochstakes"
+	"github.com/sonicfromnewyoke/mithril/pkg/safemath"
+	"github.com/sonicfromnewyoke/mithril/pkg/sealevel"
 	"github.com/gagliardetto/solana-go"
 	"github.com/nixberg/chacha-rng-go"
 )

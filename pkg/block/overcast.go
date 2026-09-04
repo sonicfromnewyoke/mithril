@@ -1,7 +1,7 @@
 package block
 
 import (
-	"github.com/Overclock-Validator/mithril/pkg/overcast"
+	"github.com/sonicfromnewyoke/mithril/pkg/overcast"
 	"github.com/gagliardetto/solana-go"
 )
 

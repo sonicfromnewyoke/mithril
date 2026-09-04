@@ -9,9 +9,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Overclock-Validator/mithril/cmd/mithril/setupcmd"
-	"github.com/Overclock-Validator/mithril/pkg/tui"
-	"github.com/Overclock-Validator/mithril/pkg/version"
+	"github.com/sonicfromnewyoke/mithril/cmd/mithril/setupcmd"
+	"github.com/sonicfromnewyoke/mithril/pkg/tui"
+	"github.com/sonicfromnewyoke/mithril/pkg/version"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/spf13/cobra"

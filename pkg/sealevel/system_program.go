@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"unicode/utf8"
 
-	a "github.com/Overclock-Validator/mithril/pkg/addresses"
-	"github.com/Overclock-Validator/mithril/pkg/cu"
-	"github.com/Overclock-Validator/mithril/pkg/features"
-	"github.com/Overclock-Validator/mithril/pkg/safemath"
+	a "github.com/sonicfromnewyoke/mithril/pkg/addresses"
+	"github.com/sonicfromnewyoke/mithril/pkg/cu"
+	"github.com/sonicfromnewyoke/mithril/pkg/features"
+	"github.com/sonicfromnewyoke/mithril/pkg/safemath"
 	bin "github.com/gagliardetto/binary"
 	"github.com/gagliardetto/solana-go"
 )

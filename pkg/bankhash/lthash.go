@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/Overclock-Validator/mithril/pkg/accounts"
-	"github.com/Overclock-Validator/mithril/pkg/lthash"
-	"github.com/Overclock-Validator/mithril/pkg/sealevel"
+	"github.com/sonicfromnewyoke/mithril/pkg/accounts"
+	"github.com/sonicfromnewyoke/mithril/pkg/lthash"
+	"github.com/sonicfromnewyoke/mithril/pkg/sealevel"
 )
 
 func updateAcctsLtHash(slotCtx *sealevel.SlotCtx, modifiedAccts []*accounts.Account) {

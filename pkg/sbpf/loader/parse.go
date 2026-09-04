@@ -10,7 +10,7 @@ import (
 	"math/bits"
 	"strings"
 
-	"github.com/Overclock-Validator/mithril/pkg/sbpf"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf"
 )
 
 // parse checks ELF file for validity and loads metadata with minimal allocations.

@@ -3,12 +3,12 @@ package snapshot
 import (
 	"fmt"
 
-	//"github.com/Overclock-Validator/mithril/pkg/mlog"
-	"github.com/Overclock-Validator/mithril/pkg/lthash"
-	"github.com/Overclock-Validator/mithril/pkg/mlog"
-	"github.com/Overclock-Validator/mithril/pkg/rewards"
-	"github.com/Overclock-Validator/mithril/pkg/sealevel"
-	"github.com/Overclock-Validator/mithril/pkg/util"
+	//"github.com/sonicfromnewyoke/mithril/pkg/mlog"
+	"github.com/sonicfromnewyoke/mithril/pkg/lthash"
+	"github.com/sonicfromnewyoke/mithril/pkg/mlog"
+	"github.com/sonicfromnewyoke/mithril/pkg/rewards"
+	"github.com/sonicfromnewyoke/mithril/pkg/sealevel"
+	"github.com/sonicfromnewyoke/mithril/pkg/util"
 	bin "github.com/gagliardetto/binary"
 	"github.com/gagliardetto/solana-go"
 )

@@ -3,7 +3,7 @@ package conformance
 import (
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/pkg/sealevel"
+	"github.com/sonicfromnewyoke/mithril/pkg/sealevel"
 	"github.com/stretchr/testify/assert"
 )
 

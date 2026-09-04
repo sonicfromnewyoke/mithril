@@ -10,7 +10,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Overclock-Validator/mithril/pkg/version"
+	"github.com/sonicfromnewyoke/mithril/pkg/version"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 

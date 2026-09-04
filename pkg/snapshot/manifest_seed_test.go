@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/pkg/epochstakes"
-	"github.com/Overclock-Validator/mithril/pkg/sealevel"
-	"github.com/Overclock-Validator/mithril/pkg/state"
+	"github.com/sonicfromnewyoke/mithril/pkg/epochstakes"
+	"github.com/sonicfromnewyoke/mithril/pkg/sealevel"
+	"github.com/sonicfromnewyoke/mithril/pkg/state"
 	"github.com/stretchr/testify/require"
 )
 

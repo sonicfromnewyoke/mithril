@@ -12,7 +12,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Overclock-Validator/mithril/pkg/mlog"
+	"github.com/sonicfromnewyoke/mithril/pkg/mlog"
 	"github.com/Overclock-Validator/solana-snapshot-finder-go/pkg/config"
 	"github.com/Overclock-Validator/solana-snapshot-finder-go/pkg/rpc"
 	"github.com/Overclock-Validator/solana-snapshot-finder-go/pkg/snapshot"

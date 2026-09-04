@@ -3,7 +3,7 @@ package sealevel
 import (
 	"fmt"
 
-	"github.com/Overclock-Validator/mithril/pkg/sbpf"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf"
 )
 
 func SyscallAbortImpl(_ sbpf.VM) (uint64, error) {
@@ -32,4 +32,4 @@ func SyscallPanicImpl(vm sbpf.VM, fileNameAddr, len, line, column uint64) (uint6
 
 var SyscallPanic = sbpf.SyscallFunc4(SyscallPanicImpl)
 
-//go:generate go run github.com/Overclock-Validator/mithril/pkg/sealevel/syscalls_gen syscalls.go
+//go:generate go run github.com/sonicfromnewyoke/mithril/pkg/sealevel/syscalls_gen syscalls.go

@@ -6,7 +6,7 @@ import (
 	"math"
 	"slices"
 
-	"github.com/Overclock-Validator/mithril/pkg/sealevel"
+	"github.com/sonicfromnewyoke/mithril/pkg/sealevel"
 	"github.com/gagliardetto/solana-go"
 )
 

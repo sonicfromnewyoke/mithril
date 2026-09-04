@@ -10,7 +10,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/pkg/sbpf/loader"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf/loader"
 	"github.com/klauspost/compress/zstd"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

@@ -14,7 +14,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Overclock-Validator/mithril/pkg/mlog"
+	"github.com/sonicfromnewyoke/mithril/pkg/mlog"
 )
 
 // Manager handles the lifecycle of a Lightbringer child process:

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/Overclock-Validator/mithril/pkg/safemath"
+	"github.com/sonicfromnewyoke/mithril/pkg/safemath"
 )
 
 type Duration struct {

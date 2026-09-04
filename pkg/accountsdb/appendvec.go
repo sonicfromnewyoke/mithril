@@ -6,8 +6,8 @@ import (
 	"io"
 	"os"
 
-	"github.com/Overclock-Validator/mithril/pkg/accounts"
-	"github.com/Overclock-Validator/mithril/pkg/util"
+	"github.com/sonicfromnewyoke/mithril/pkg/accounts"
+	"github.com/sonicfromnewyoke/mithril/pkg/util"
 	"github.com/gagliardetto/solana-go"
 )
 

@@ -3,8 +3,8 @@ package replay
 import (
 	"fmt"
 
-	"github.com/Overclock-Validator/mithril/pkg/sealevel"
-	"github.com/Overclock-Validator/mithril/pkg/state"
+	"github.com/sonicfromnewyoke/mithril/pkg/sealevel"
+	"github.com/sonicfromnewyoke/mithril/pkg/state"
 )
 
 func bankEpochScheduleFromState(s *state.MithrilState) (*sealevel.SysvarEpochSchedule, bool) {

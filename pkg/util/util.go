@@ -7,7 +7,7 @@ import (
 	"slices"
 	"sort"
 
-	"github.com/Overclock-Validator/mithril/pkg/accounts"
+	"github.com/sonicfromnewyoke/mithril/pkg/accounts"
 	"github.com/gagliardetto/solana-go"
 	"github.com/zeebo/blake3"
 )

@@ -1,6 +1,6 @@
 package addresses
 
-import "github.com/Overclock-Validator/mithril/pkg/base58"
+import "github.com/sonicfromnewyoke/mithril/pkg/base58"
 
 const BpfLoaderUpgradeableAddrStr = "BPFLoaderUpgradeab1e11111111111111111111111"
 

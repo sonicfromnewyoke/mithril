@@ -4,8 +4,8 @@ import (
 	"debug/elf"
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/pkg/sbpf"
-	"github.com/Overclock-Validator/mithril/pkg/sbpf/sbpfver"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf/sbpfver"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -6,7 +6,7 @@ import (
 	"runtime"
 	"sync"
 
-	"github.com/Overclock-Validator/mithril/pkg/accounts"
+	"github.com/sonicfromnewyoke/mithril/pkg/accounts"
 	"github.com/gagliardetto/solana-go"
 )
 

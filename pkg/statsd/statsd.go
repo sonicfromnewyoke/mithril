@@ -8,8 +8,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 
-	mithrilmetrics "github.com/Overclock-Validator/mithril/pkg/metrics"
-	"github.com/Overclock-Validator/mithril/pkg/mlog"
+	mithrilmetrics "github.com/sonicfromnewyoke/mithril/pkg/metrics"
+	"github.com/sonicfromnewyoke/mithril/pkg/mlog"
 )
 
 type metricType int

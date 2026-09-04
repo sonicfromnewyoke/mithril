@@ -3,8 +3,8 @@ package replay
 import (
 	"testing"
 
-	b "github.com/Overclock-Validator/mithril/pkg/block"
-	"github.com/Overclock-Validator/mithril/pkg/blockstream"
+	b "github.com/sonicfromnewyoke/mithril/pkg/block"
+	"github.com/sonicfromnewyoke/mithril/pkg/blockstream"
 )
 
 func TestShouldDiscardLightbringerObservationAfterFallback(t *testing.T) {

@@ -12,9 +12,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Overclock-Validator/mithril/fixtures"
-	"github.com/Overclock-Validator/mithril/pkg/block"
-	"github.com/Overclock-Validator/mithril/pkg/txverify"
+	"github.com/sonicfromnewyoke/mithril/fixtures"
+	"github.com/sonicfromnewyoke/mithril/pkg/block"
+	"github.com/sonicfromnewyoke/mithril/pkg/txverify"
 	bin "github.com/gagliardetto/binary"
 	"github.com/gagliardetto/solana-go"
 )

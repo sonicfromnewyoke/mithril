@@ -13,7 +13,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Overclock-Validator/mithril/pkg/base58"
+	"github.com/sonicfromnewyoke/mithril/pkg/base58"
 	"golang.org/x/term"
 )
 

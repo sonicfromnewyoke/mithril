@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Overclock-Validator/mithril/pkg/addresses"
+	"github.com/sonicfromnewyoke/mithril/pkg/addresses"
 	"github.com/gagliardetto/solana-go"
 )
 

@@ -3,8 +3,8 @@ package blockstore
 import (
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/fixtures"
-	"github.com/Overclock-Validator/mithril/pkg/shred"
+	"github.com/sonicfromnewyoke/mithril/fixtures"
+	"github.com/sonicfromnewyoke/mithril/pkg/shred"
 	"github.com/gagliardetto/solana-go"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

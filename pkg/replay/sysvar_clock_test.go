@@ -3,9 +3,9 @@ package replay
 import (
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/pkg/block"
-	"github.com/Overclock-Validator/mithril/pkg/global"
-	"github.com/Overclock-Validator/mithril/pkg/sealevel"
+	"github.com/sonicfromnewyoke/mithril/pkg/block"
+	"github.com/sonicfromnewyoke/mithril/pkg/global"
+	"github.com/sonicfromnewyoke/mithril/pkg/sealevel"
 	"github.com/stretchr/testify/require"
 )
 

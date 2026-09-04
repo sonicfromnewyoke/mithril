@@ -5,9 +5,9 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/Overclock-Validator/mithril/pkg/base58"
-	"github.com/Overclock-Validator/mithril/pkg/epochstakes"
-	"github.com/Overclock-Validator/mithril/pkg/mlog"
+	"github.com/sonicfromnewyoke/mithril/pkg/base58"
+	"github.com/sonicfromnewyoke/mithril/pkg/epochstakes"
+	"github.com/sonicfromnewyoke/mithril/pkg/mlog"
 	"github.com/gagliardetto/solana-go"
 )
 

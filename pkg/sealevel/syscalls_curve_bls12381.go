@@ -6,9 +6,9 @@ import (
 
 	bls12381 "github.com/Overclock-Validator/gnark-crypto/ecc/bls12-381"
 	"github.com/Overclock-Validator/gnark-crypto/ecc/bls12-381/fr"
-	"github.com/Overclock-Validator/mithril/pkg/cu"
-	"github.com/Overclock-Validator/mithril/pkg/safemath"
-	"github.com/Overclock-Validator/mithril/pkg/sbpf"
+	"github.com/sonicfromnewyoke/mithril/pkg/cu"
+	"github.com/sonicfromnewyoke/mithril/pkg/safemath"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf"
 )
 
 const (

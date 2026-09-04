@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/Overclock-Validator/mithril/pkg/tui"
+	"github.com/sonicfromnewyoke/mithril/pkg/tui"
 )
 
 // MigrateConfig checks if a config file is missing [lightbringer] or [consensus]

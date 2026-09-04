@@ -1,7 +1,7 @@
 package sbpf
 
 import (
-	"github.com/Overclock-Validator/mithril/pkg/sbpf/sbpfver"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf/sbpfver"
 )
 
 // Program is a loaded SBF program.

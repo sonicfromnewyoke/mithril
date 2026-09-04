@@ -11,9 +11,9 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/Overclock-Validator/mithril/pkg/features"
-	"github.com/Overclock-Validator/mithril/pkg/sbpf"
-	"github.com/Overclock-Validator/mithril/pkg/sbpf/sbpfver"
+	"github.com/sonicfromnewyoke/mithril/pkg/features"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf/sbpfver"
 )
 
 var ErrOutOfBounds = errors.New("value out of bounds")

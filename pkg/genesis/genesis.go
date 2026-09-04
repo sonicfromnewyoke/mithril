@@ -3,8 +3,8 @@ package genesis
 import (
 	"time"
 
-	"github.com/Overclock-Validator/mithril/pkg/accounts"
-	"github.com/Overclock-Validator/mithril/pkg/runtime"
+	"github.com/sonicfromnewyoke/mithril/pkg/accounts"
+	"github.com/sonicfromnewyoke/mithril/pkg/runtime"
 )
 
 // Genesis contains the genesis state of a Solana ledger.

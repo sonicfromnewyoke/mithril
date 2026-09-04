@@ -11,8 +11,8 @@ import (
 	"sync"
 	"time"
 
-	//"github.com/Overclock-Validator/mithril/pkg/mlog"
-	"github.com/Overclock-Validator/mithril/pkg/mlog"
+	//"github.com/sonicfromnewyoke/mithril/pkg/mlog"
+	"github.com/sonicfromnewyoke/mithril/pkg/mlog"
 	"github.com/gagliardetto/solana-go"
 	"github.com/gagliardetto/solana-go/rpc"
 )

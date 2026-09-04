@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/Overclock-Validator/mithril/pkg/shred"
+	"github.com/sonicfromnewyoke/mithril/pkg/shred"
 	bin "github.com/gagliardetto/binary"
 )
 

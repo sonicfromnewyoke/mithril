@@ -1,9 +1,9 @@
 package sealevel
 
 import (
-	"github.com/Overclock-Validator/mithril/pkg/accounts"
-	"github.com/Overclock-Validator/mithril/pkg/arena"
-	"github.com/Overclock-Validator/mithril/pkg/safemath"
+	"github.com/sonicfromnewyoke/mithril/pkg/accounts"
+	"github.com/sonicfromnewyoke/mithril/pkg/arena"
+	"github.com/sonicfromnewyoke/mithril/pkg/safemath"
 	"github.com/Overclock-Validator/wide"
 	"github.com/gagliardetto/solana-go"
 )

@@ -3,8 +3,8 @@ package replay
 import (
 	"testing"
 
-	b "github.com/Overclock-Validator/mithril/pkg/block"
-	"github.com/Overclock-Validator/mithril/pkg/global"
+	b "github.com/sonicfromnewyoke/mithril/pkg/block"
+	"github.com/sonicfromnewyoke/mithril/pkg/global"
 )
 
 func TestAssignBlockHeightUsesNextProducedHeight(t *testing.T) {

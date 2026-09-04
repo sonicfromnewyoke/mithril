@@ -4,8 +4,8 @@ import (
 	"encoding/base64"
 	"encoding/json"
 
-	"github.com/Overclock-Validator/mithril/pkg/blockstore"
-	"github.com/Overclock-Validator/mithril/pkg/shred"
+	"github.com/sonicfromnewyoke/mithril/pkg/blockstore"
+	"github.com/sonicfromnewyoke/mithril/pkg/shred"
 )
 
 // entryBatch is a YAML-friendly version of blockstore.Entries.

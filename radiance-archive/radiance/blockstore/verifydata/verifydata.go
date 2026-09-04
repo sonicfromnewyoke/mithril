@@ -10,7 +10,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Overclock-Validator/mithril/pkg/blockstore"
+	"github.com/sonicfromnewyoke/mithril/pkg/blockstore"
 	"github.com/VividCortex/ewma"
 	"github.com/linxGnu/grocksdb"
 	"github.com/mattn/go-isatty"

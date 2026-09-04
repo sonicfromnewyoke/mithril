@@ -729,7 +729,7 @@ const file_perfetto_proto_rawDesc = "" +
 	"\rpointer_value\x18\a \x01(\x04H\x00R\fpointerValue\x12C\n" +
 	"\fdict_entries\x18\v \x03(\v2 .perfetto.protos.DebugAnnotationR\vdictEntries\x12C\n" +
 	"\farray_values\x18\f \x03(\v2 .perfetto.protos.DebugAnnotationR\varrayValuesB\a\n" +
-	"\x05valueBAZ?github.com/Overclock-Validator/mithril/cmd/trace2perfetto/protob\x06proto3"
+	"\x05valueBAZ?github.com/sonicfromnewyoke/mithril/cmd/trace2perfetto/protob\x06proto3"
 
 var (
 	file_perfetto_proto_rawDescOnce sync.Once

@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"errors"
 
-	"github.com/Overclock-Validator/mithril/pkg/features"
-	"github.com/Overclock-Validator/mithril/pkg/safemath"
+	"github.com/sonicfromnewyoke/mithril/pkg/features"
+	"github.com/sonicfromnewyoke/mithril/pkg/safemath"
 	"github.com/ethereum/go-ethereum/crypto"
 	bin "github.com/gagliardetto/binary"
 	"golang.org/x/crypto/sha3"

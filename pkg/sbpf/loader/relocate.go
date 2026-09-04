@@ -5,7 +5,7 @@ import (
 	"encoding/binary"
 	"fmt"
 
-	"github.com/Overclock-Validator/mithril/pkg/sbpf"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf"
 )
 
 // relocate applies ELF relocations (for syscalls and position-independent code).

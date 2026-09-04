@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/Overclock-Validator/mithril/pkg/config"
-	"github.com/Overclock-Validator/mithril/pkg/tui"
+	"github.com/sonicfromnewyoke/mithril/pkg/config"
+	"github.com/sonicfromnewyoke/mithril/pkg/tui"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/spf13/cobra"
 )

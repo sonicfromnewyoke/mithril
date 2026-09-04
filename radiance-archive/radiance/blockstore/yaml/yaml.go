@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/Overclock-Validator/mithril/cmd/radiance/blockstore/util"
-	"github.com/Overclock-Validator/mithril/pkg/blockstore"
+	"github.com/sonicfromnewyoke/mithril/cmd/radiance/blockstore/util"
+	"github.com/sonicfromnewyoke/mithril/pkg/blockstore"
 	"github.com/linxGnu/grocksdb"
 	"github.com/segmentio/textio"
 	"github.com/spf13/cobra"

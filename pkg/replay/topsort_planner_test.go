@@ -6,7 +6,7 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/pkg/block"
+	"github.com/sonicfromnewyoke/mithril/pkg/block"
 	"github.com/gagliardetto/solana-go"
 	"github.com/gagliardetto/solana-go/rpc"
 	"github.com/google/go-cmp/cmp"

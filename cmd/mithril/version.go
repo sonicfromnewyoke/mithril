@@ -1,6 +1,6 @@
 package main
 
-import "github.com/Overclock-Validator/mithril/pkg/version"
+import "github.com/sonicfromnewyoke/mithril/pkg/version"
 
 // Re-export version variables for CLI usage
 // These are set via ldflags at build time in pkg/version

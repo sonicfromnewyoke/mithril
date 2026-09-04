@@ -1,8 +1,8 @@
 package forkchoice
 
 import (
-	"github.com/Overclock-Validator/mithril/pkg/epochstakes"
-	"github.com/Overclock-Validator/mithril/pkg/sealevel"
+	"github.com/sonicfromnewyoke/mithril/pkg/epochstakes"
+	"github.com/sonicfromnewyoke/mithril/pkg/sealevel"
 	bin "github.com/gagliardetto/binary"
 	"github.com/gagliardetto/solana-go"
 	"github.com/gammazero/deque"

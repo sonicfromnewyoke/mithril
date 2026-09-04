@@ -4,7 +4,7 @@ import (
 	"encoding/binary"
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/pkg/cu"
+	"github.com/sonicfromnewyoke/mithril/pkg/cu"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

@@ -4,9 +4,9 @@ import (
 	"errors"
 	"math"
 
-	a "github.com/Overclock-Validator/mithril/pkg/addresses"
-	"github.com/Overclock-Validator/mithril/pkg/features"
-	"github.com/Overclock-Validator/mithril/pkg/sbpf"
+	a "github.com/sonicfromnewyoke/mithril/pkg/addresses"
+	"github.com/sonicfromnewyoke/mithril/pkg/features"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf"
 )
 
 func isNonOverlapping(src, srcLen, dst, dstLen uint64) bool {

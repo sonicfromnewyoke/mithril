@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/Overclock-Validator/mithril/pkg/base58"
+	"github.com/sonicfromnewyoke/mithril/pkg/base58"
 	"github.com/gagliardetto/solana-go"
 )
 

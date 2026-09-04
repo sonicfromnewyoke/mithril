@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/pkg/epochstakes"
-	"github.com/Overclock-Validator/mithril/pkg/state"
+	"github.com/sonicfromnewyoke/mithril/pkg/epochstakes"
+	"github.com/sonicfromnewyoke/mithril/pkg/state"
 )
 
 func TestPrepareManifestEpochStakesForRuntimeRepairsPreviouslyRebasedDevnetFrame(t *testing.T) {

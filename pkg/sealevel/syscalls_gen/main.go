@@ -6,7 +6,7 @@ import (
 	"go/format"
 	"os"
 
-	"github.com/Overclock-Validator/mithril/pkg/sbpf"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf"
 )
 
 type syscallDef struct {
@@ -103,8 +103,8 @@ func main() {
 package sealevel
 
 import (
-	"github.com/Overclock-Validator/mithril/pkg/features"
-	"github.com/Overclock-Validator/mithril/pkg/sbpf"
+	"github.com/sonicfromnewyoke/mithril/pkg/features"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf"
 )
 
 const (`)

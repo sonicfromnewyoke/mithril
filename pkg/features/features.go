@@ -3,7 +3,7 @@ package features
 import (
 	"fmt"
 
-	"github.com/Overclock-Validator/mithril/pkg/base58"
+	"github.com/sonicfromnewyoke/mithril/pkg/base58"
 )
 
 type FeatureGate struct {

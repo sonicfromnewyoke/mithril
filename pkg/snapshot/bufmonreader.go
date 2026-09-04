@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/Overclock-Validator/mithril/pkg/mlog"
+	"github.com/sonicfromnewyoke/mithril/pkg/mlog"
 )
 
 // ProgressCallback is called with (bytesRead, totalBytes) to report download progress

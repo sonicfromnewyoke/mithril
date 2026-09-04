@@ -1,7 +1,7 @@
 package setupcmd
 
 import (
-	"github.com/Overclock-Validator/mithril/pkg/tui"
+	"github.com/sonicfromnewyoke/mithril/pkg/tui"
 	"github.com/charmbracelet/lipgloss"
 )
 

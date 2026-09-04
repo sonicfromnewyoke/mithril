@@ -5,9 +5,9 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/Overclock-Validator/mithril/pkg/accounts"
-	"github.com/Overclock-Validator/mithril/pkg/fees"
-	"github.com/Overclock-Validator/mithril/pkg/sealevel"
+	"github.com/sonicfromnewyoke/mithril/pkg/accounts"
+	"github.com/sonicfromnewyoke/mithril/pkg/fees"
+	"github.com/sonicfromnewyoke/mithril/pkg/sealevel"
 	"github.com/gagliardetto/solana-go"
 )
 

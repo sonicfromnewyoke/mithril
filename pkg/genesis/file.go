@@ -7,7 +7,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/Overclock-Validator/mithril/pkg/archiveutil"
+	"github.com/sonicfromnewyoke/mithril/pkg/archiveutil"
 	bin "github.com/gagliardetto/binary"
 )
 

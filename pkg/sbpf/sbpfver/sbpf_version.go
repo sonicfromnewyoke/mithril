@@ -1,6 +1,6 @@
 package sbpfver
 
-import "github.com/Overclock-Validator/mithril/pkg/features"
+import "github.com/sonicfromnewyoke/mithril/pkg/features"
 
 const (
 	SbpfVersionV0 = iota

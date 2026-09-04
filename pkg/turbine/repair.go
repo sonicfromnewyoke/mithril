@@ -10,8 +10,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Overclock-Validator/mithril/pkg/gossip"
-	repairproto "github.com/Overclock-Validator/mithril/pkg/repair"
+	"github.com/sonicfromnewyoke/mithril/pkg/gossip"
+	repairproto "github.com/sonicfromnewyoke/mithril/pkg/repair"
 )
 
 const (

@@ -3,7 +3,7 @@ package blockstore
 import (
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/fixtures"
+	"github.com/sonicfromnewyoke/mithril/fixtures"
 )
 
 func BenchmarkDataShredsToEntries_mainnet102815960(b *testing.B) {

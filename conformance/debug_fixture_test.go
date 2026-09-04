@@ -9,9 +9,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/pkg/sbpf"
-	"github.com/Overclock-Validator/mithril/pkg/sbpf/loader"
-	sealevelPkg "github.com/Overclock-Validator/mithril/pkg/sealevel"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf/loader"
+	sealevelPkg "github.com/sonicfromnewyoke/mithril/pkg/sealevel"
 	"github.com/gagliardetto/solana-go"
 )
 

@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Overclock-Validator/mithril/pkg/gossip"
+	"github.com/sonicfromnewyoke/mithril/pkg/gossip"
 )
 
 const (

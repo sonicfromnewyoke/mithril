@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/Overclock-Validator/mithril/pkg/sbpf"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf"
 )
 
 type sectionMapping struct {

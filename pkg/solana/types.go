@@ -1,6 +1,6 @@
 package solana
 
-import "github.com/Overclock-Validator/mithril/pkg/base58"
+import "github.com/sonicfromnewyoke/mithril/pkg/base58"
 
 type Hash [32]byte
 type Address [32]byte

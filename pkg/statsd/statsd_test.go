@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	mithrilmetrics "github.com/Overclock-Validator/mithril/pkg/metrics"
+	mithrilmetrics "github.com/sonicfromnewyoke/mithril/pkg/metrics"
 	"github.com/prometheus/client_golang/prometheus"
 	dto "github.com/prometheus/client_model/go"
 	"github.com/stretchr/testify/assert"

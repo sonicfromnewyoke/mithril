@@ -6,9 +6,9 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/Overclock-Validator/mithril/cmd/radiance/blockstore"
-	"github.com/Overclock-Validator/mithril/cmd/radiance/gossip"
-	"github.com/Overclock-Validator/mithril/cmd/radiance/replay"
+	"github.com/sonicfromnewyoke/mithril/cmd/radiance/blockstore"
+	"github.com/sonicfromnewyoke/mithril/cmd/radiance/gossip"
+	"github.com/sonicfromnewyoke/mithril/cmd/radiance/replay"
 	"github.com/spf13/cobra"
 	"k8s.io/klog/v2"
 

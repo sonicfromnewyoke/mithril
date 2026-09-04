@@ -3,8 +3,8 @@ package sealevel
 import (
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/pkg/features"
-	"github.com/Overclock-Validator/mithril/pkg/sbpf"
+	"github.com/sonicfromnewyoke/mithril/pkg/features"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -7,7 +7,7 @@ import (
 	"log"
 	"os"
 
-	pb "github.com/Overclock-Validator/mithril/cmd/trace2perfetto/proto"
+	pb "github.com/sonicfromnewyoke/mithril/cmd/trace2perfetto/proto"
 	exptrace "golang.org/x/exp/trace"
 	"google.golang.org/protobuf/proto"
 )

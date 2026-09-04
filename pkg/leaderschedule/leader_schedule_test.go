@@ -8,7 +8,7 @@ import (
 	"math"
 	"testing"
 
-	mbase58 "github.com/Overclock-Validator/mithril/pkg/base58"
+	mbase58 "github.com/sonicfromnewyoke/mithril/pkg/base58"
 	"github.com/gagliardetto/solana-go"
 	chacha "github.com/nixberg/chacha-rng-go"
 	"github.com/stretchr/testify/assert"

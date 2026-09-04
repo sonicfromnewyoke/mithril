@@ -4,9 +4,9 @@ import (
 	"encoding/binary"
 	"math/big"
 
-	"github.com/Overclock-Validator/mithril/pkg/cu"
-	"github.com/Overclock-Validator/mithril/pkg/safemath"
-	"github.com/Overclock-Validator/mithril/pkg/sbpf"
+	"github.com/sonicfromnewyoke/mithril/pkg/cu"
+	"github.com/sonicfromnewyoke/mithril/pkg/safemath"
+	"github.com/sonicfromnewyoke/mithril/pkg/sbpf"
 )
 
 // bigModExpParamsSize is the size of Agave's BigModExpParams struct: three

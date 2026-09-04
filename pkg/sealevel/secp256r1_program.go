@@ -8,7 +8,7 @@ import (
 	"math"
 	"math/big"
 
-	"github.com/Overclock-Validator/mithril/pkg/safemath"
+	"github.com/sonicfromnewyoke/mithril/pkg/safemath"
 )
 
 const (

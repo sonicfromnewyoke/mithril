@@ -1,6 +1,6 @@
 package blockstore
 
-import "github.com/Overclock-Validator/mithril/pkg/shred"
+import "github.com/sonicfromnewyoke/mithril/pkg/shred"
 
 // BlockWalkI abstracts iterators over block data.
 //

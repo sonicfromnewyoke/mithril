@@ -6,7 +6,7 @@ import (
 	"encoding/binary"
 	"fmt"
 
-	"github.com/Overclock-Validator/mithril/pkg/shred"
+	"github.com/sonicfromnewyoke/mithril/pkg/shred"
 	"github.com/linxGnu/grocksdb"
 )
 

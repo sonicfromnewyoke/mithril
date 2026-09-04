@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	b "github.com/Overclock-Validator/mithril/pkg/block"
+	b "github.com/sonicfromnewyoke/mithril/pkg/block"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

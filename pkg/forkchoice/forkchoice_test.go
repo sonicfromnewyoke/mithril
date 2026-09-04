@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/pkg/epochstakes"
+	"github.com/sonicfromnewyoke/mithril/pkg/epochstakes"
 	"github.com/gagliardetto/solana-go"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

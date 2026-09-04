@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Overclock-Validator/mithril/fixtures"
-	"github.com/Overclock-Validator/mithril/pkg/runtime"
+	"github.com/sonicfromnewyoke/mithril/fixtures"
+	"github.com/sonicfromnewyoke/mithril/pkg/runtime"
 	"github.com/gagliardetto/solana-go"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

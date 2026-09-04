@@ -10,8 +10,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Overclock-Validator/mithril/pkg/mlog"
-	"github.com/Overclock-Validator/mithril/pkg/rewards"
+	"github.com/sonicfromnewyoke/mithril/pkg/mlog"
+	"github.com/sonicfromnewyoke/mithril/pkg/rewards"
 )
 
 const (

@@ -6,9 +6,9 @@ import (
 	"os"
 	"slices"
 
-	"github.com/Overclock-Validator/mithril/pkg/block"
-	"github.com/Overclock-Validator/mithril/pkg/mlog"
-	"github.com/Overclock-Validator/mithril/pkg/replay"
+	"github.com/sonicfromnewyoke/mithril/pkg/block"
+	"github.com/sonicfromnewyoke/mithril/pkg/mlog"
+	"github.com/sonicfromnewyoke/mithril/pkg/replay"
 	"github.com/gagliardetto/solana-go/rpc"
 )
 

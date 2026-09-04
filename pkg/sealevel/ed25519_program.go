@@ -6,7 +6,7 @@ import (
 	"io"
 	"math"
 
-	"github.com/Overclock-Validator/mithril/pkg/features"
+	"github.com/sonicfromnewyoke/mithril/pkg/features"
 	"github.com/oasisprotocol/curve25519-voi/primitives/ed25519"
 )
 

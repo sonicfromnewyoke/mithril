@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/Overclock-Validator/mithril/pkg/global"
+	"github.com/sonicfromnewyoke/mithril/pkg/global"
 	"github.com/filecoin-project/go-jsonrpc"
 	"github.com/mr-tron/base58"
 )

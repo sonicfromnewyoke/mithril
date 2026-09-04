@@ -1,7 +1,7 @@
 package sealevel
 
 import (
-	a "github.com/Overclock-Validator/mithril/pkg/addresses"
+	a "github.com/sonicfromnewyoke/mithril/pkg/addresses"
 	bin "github.com/gagliardetto/binary"
 	"github.com/gagliardetto/solana-go"
 )

@@ -12,10 +12,10 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/Overclock-Validator/mithril/pkg/accounts"
-	"github.com/Overclock-Validator/mithril/pkg/accountsdb"
-	"github.com/Overclock-Validator/mithril/pkg/cu"
-	sealevelPkg "github.com/Overclock-Validator/mithril/pkg/sealevel"
+	"github.com/sonicfromnewyoke/mithril/pkg/accounts"
+	"github.com/sonicfromnewyoke/mithril/pkg/accountsdb"
+	"github.com/sonicfromnewyoke/mithril/pkg/cu"
+	sealevelPkg "github.com/sonicfromnewyoke/mithril/pkg/sealevel"
 	"github.com/gagliardetto/solana-go"
 )
 
